@@ -1,8 +1,8 @@
 package com.student.controller.impl;
 
-import com.student.controller.AbstractController;
-import com.student.handler.ViewHandler;
+import com.student.controller.AbstractTableController;
 import com.student.model.Attendance;
+import com.student.view.ViewHandler;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -16,7 +16,7 @@ import java.util.ResourceBundle;
 /**
  * @author Tomas Kozakas
  */
-public class AttendanceController extends AbstractController<Attendance> implements Table {
+public class AttendanceTableController extends AbstractTableController<Attendance> implements Table {
     @FXML
     private TableColumn<Attendance, String> dateCol;
     @FXML
@@ -37,8 +37,10 @@ public class AttendanceController extends AbstractController<Attendance> impleme
     private Button btnEdit;
     @FXML
     private Button btnRemove;
+    @FXML
+    private Button btnExport;
 
-    public AttendanceController(ViewHandler viewHandler) {
+    public AttendanceTableController(ViewHandler viewHandler) {
         super(viewHandler);
     }
 
@@ -57,6 +59,13 @@ public class AttendanceController extends AbstractController<Attendance> impleme
         return e -> {
             list.remove(chosenObject);
             table.setItems(list);
+        };
+    }
+
+    @Override
+    public EventHandler<ActionEvent> exportTable() {
+        return e -> {
+
         };
     }
 
@@ -94,6 +103,8 @@ public class AttendanceController extends AbstractController<Attendance> impleme
         btnAdd.setOnAction(addRow());
         btnRemove.setOnAction(removeRow());
         btnEdit.setOnAction(editRow());
+        btnExport.setOnAction(exportTable());
+
         btnBack.setOnAction(event -> {
             try {
                 viewHandler.launchStudentWindow();

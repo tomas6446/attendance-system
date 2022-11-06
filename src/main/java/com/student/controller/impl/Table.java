@@ -3,12 +3,11 @@ package com.student.controller.impl;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 
 /**
  * @author Tomas Kozakas
  */
-public interface Table extends Initializable {
+public interface Table {
     @FXML
     EventHandler<ActionEvent> addRow();
 
@@ -17,4 +16,7 @@ public interface Table extends Initializable {
 
     @FXML
     EventHandler<ActionEvent> removeRow();
+
+    @FXML
+    EventHandler<ActionEvent> exportTable();
 }

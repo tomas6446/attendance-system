@@ -1,4 +1,4 @@
-package com.student.handler;
+package com.student.view;
 
 import java.io.IOException;
 

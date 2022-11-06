@@ -1,4 +1,4 @@
-package com.student.view;
+package com.student.window;
 
 import com.student.controller.AbstractController;
 import javafx.fxml.FXMLLoader;
@@ -28,4 +28,6 @@ public abstract class AbstractWindow {
     }
 
     protected abstract String getFxmlPath();
+
+    public abstract String getTitle();
 }

@@ -1,14 +1,15 @@
 package com.student.controller.impl;
 
-import com.student.controller.AbstractController;
-import com.student.handler.ViewHandler;
+import com.student.controller.AbstractTableController;
 import com.student.model.Student;
+import com.student.view.ViewHandler;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -16,7 +17,7 @@ import java.util.ResourceBundle;
 /**
  * @author Tomas Kozakas
  */
-public class StudentController extends AbstractController<Student> implements Table {
+public class StudentTableController extends AbstractTableController<Student> implements Table {
     @FXML
     private TableColumn<Student, String> nameCol;
     @FXML
@@ -37,8 +38,10 @@ public class StudentController extends AbstractController<Student> implements Ta
     private Button btnEdit;
     @FXML
     private Button btnRemove;
+    @FXML
+    private Button btnExport;
 
-    public StudentController(ViewHandler viewHandler) {
+    public StudentTableController(ViewHandler viewHandler) {
         super(viewHandler);
     }
 
@@ -59,6 +62,28 @@ public class StudentController extends AbstractController<Student> implements Ta
         return e -> {
             list.remove(chosenObject);
             table.setItems(list);
+        };
+    }
+
+    @Override
+    public EventHandler<ActionEvent> exportTable() {
+        return e -> {
+            try {
+                FileWriter fileWriter = new FileWriter("students.csv");
+                for (Student student : list) {
+                    fileWriter.append(String.valueOf(student.getNumber()));
+                    fileWriter.append(',');
+                    fileWriter.append(String.valueOf(student.getName()));
+                    fileWriter.append(',');
+                    fileWriter.append(student.getSurname());
+                    fileWriter.append(',');
+                    fileWriter.append(student.getGroup());
+                }
+                System.out.println("CSV file was created successfully !!!");
+            } catch (Exception exception) {
+                System.out.println("Error in CsvFileWriter !!!");
+                exception.printStackTrace();
+            }
         };
     }
 
@@ -104,6 +129,7 @@ public class StudentController extends AbstractController<Student> implements Ta
         btnAdd.setOnAction(addRow());
         btnRemove.setOnAction(removeRow());
         btnEdit.setOnAction(editRow());
+        btnExport.setOnAction(exportTable());
         cbGroup.getItems().addAll("1", "2", "3", "4");
         cbGroup.setValue(cbGroup.getValue());
 

@@ -33,5 +33,7 @@
                 </TableView>
             </children>
         </Pane>
+        <Button fx:id="btnExport" layoutX="674.0" layoutY="600.0" mnemonicParsing="false" onAction="#exportTable"
+                prefWidth="76.0" text="Export"/>
     </children>
 </Pane>

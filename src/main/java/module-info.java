@@ -11,12 +11,12 @@ module com.attendancesystem {
     opens com.student.controller to javafx.fxml;
     exports com.student.controller.impl;
     opens com.student.controller.impl to javafx.fxml;
-    exports com.student.handler;
-    opens com.student.handler to javafx.fxml;
-    exports com.student.handler.impl;
-    opens com.student.handler.impl to javafx.fxml;
     exports com.student.view;
     opens com.student.view to javafx.fxml;
     exports com.student.view.impl;
     opens com.student.view.impl to javafx.fxml;
+    exports com.student.window;
+    opens com.student.window to javafx.fxml;
+    exports com.student.window.impl;
+    opens com.student.window.impl to javafx.fxml;
 }

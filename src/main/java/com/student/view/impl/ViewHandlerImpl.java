@@ -1,11 +1,11 @@
-package com.student.handler.impl;
+package com.student.view.impl;
 
-import com.student.controller.impl.AttendanceController;
-import com.student.controller.impl.StudentController;
-import com.student.handler.ViewHandler;
-import com.student.view.AbstractWindow;
-import com.student.view.impl.AttendanceWindow;
-import com.student.view.impl.StudentWindow;
+import com.student.controller.impl.AttendanceTableController;
+import com.student.controller.impl.StudentTableController;
+import com.student.view.ViewHandler;
+import com.student.window.AbstractWindow;
+import com.student.window.impl.AttendanceWindow;
+import com.student.window.impl.StudentWindow;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
@@ -23,14 +23,14 @@ public class ViewHandlerImpl implements ViewHandler {
 
     public ViewHandlerImpl(Stage primaryStage) {
         this.primaryStage = primaryStage;
-        this.studentWindow = new StudentWindow(new StudentController(this));
+        this.studentWindow = new StudentWindow(new StudentTableController(this));
         this.attendanceWindow = new ArrayList<>();
     }
 
     @Override
     public void launchAttendanceWindow(int index) throws IOException {
         if (index >= attendanceWindow.size()) {
-            attendanceWindow.add(new AttendanceWindow(new AttendanceController(this)));
+            attendanceWindow.add(new AttendanceWindow(new AttendanceTableController(this)));
         }
         showWindow(attendanceWindow.get(index));
     }
@@ -41,6 +41,7 @@ public class ViewHandlerImpl implements ViewHandler {
     }
 
     private void showWindow(AbstractWindow window) throws IOException {
+        primaryStage.setTitle(window.getTitle());
         primaryStage.setScene(new Scene(window.root()));
         primaryStage.show();
     }
