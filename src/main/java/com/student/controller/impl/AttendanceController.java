@@ -3,6 +3,8 @@ package com.student.controller.impl;
 import com.student.controller.AbstractController;
 import com.student.handler.ViewHandler;
 import com.student.model.Attendance;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -29,33 +31,45 @@ public class AttendanceController extends AbstractController<Attendance> impleme
     private CheckBox chbPresent;
     @FXML
     private Button btnBack;
+    @FXML
+    private Button btnAdd;
+    @FXML
+    private Button btnEdit;
+    @FXML
+    private Button btnRemove;
 
     public AttendanceController(ViewHandler viewHandler) {
         super(viewHandler);
     }
 
     @Override
-    public void addRow() {
-        if (list.stream().noneMatch(attend -> attend.getDate().equals(dpDate.getValue()) && attend.getSubject().equals(tfSubject.getText()))) {
-            list.add(new Attendance(dpDate.getValue(), chbPresent.isSelected(), tfSubject.getText()));
-        }
-        table.setItems(list);
-    }
-
-    @Override
-    public void removeRow() {
-        list.remove(chosenObject);
-        table.setItems(list);
-    }
-
-    @Override
-    public void editRow() {
-        if (!list.isEmpty() && chosenObject != null) {
-            list.remove(chosenObject);
-            chosenObject = new Attendance(dpDate.getValue(), chbPresent.isSelected(), tfSubject.getText());
-            list.add(chosenObject);
+    public EventHandler<ActionEvent> addRow() {
+        return e -> {
+            if (list.stream().noneMatch(attend -> attend.getDate().equals(dpDate.getValue()) && attend.getSubject().equals(tfSubject.getText()))) {
+                list.add(new Attendance(dpDate.getValue(), chbPresent.isSelected(), tfSubject.getText()));
+            }
             table.setItems(list);
-        }
+        };
+    }
+
+    @Override
+    public EventHandler<ActionEvent> removeRow() {
+        return e -> {
+            list.remove(chosenObject);
+            table.setItems(list);
+        };
+    }
+
+    @Override
+    public EventHandler<ActionEvent> editRow() {
+        return e -> {
+            if (!list.isEmpty() && chosenObject != null) {
+                list.remove(chosenObject);
+                chosenObject = new Attendance(dpDate.getValue(), chbPresent.isSelected(), tfSubject.getText());
+                list.add(chosenObject);
+                table.setItems(list);
+            }
+        };
     }
 
     @Override
@@ -77,6 +91,9 @@ public class AttendanceController extends AbstractController<Attendance> impleme
             return row;
         });
 
+        btnAdd.setOnAction(addRow());
+        btnRemove.setOnAction(removeRow());
+        btnEdit.setOnAction(editRow());
         btnBack.setOnAction(event -> {
             try {
                 viewHandler.launchStudentWindow();

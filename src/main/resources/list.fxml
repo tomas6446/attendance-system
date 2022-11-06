@@ -7,7 +7,7 @@
     <children>
         <Pane fx:id="inputPane" layoutX="41.0" layoutY="37.0">
             <children>
-                <Button fx:id="btnAdd" layoutY="97.0" mnemonicParsing="false" prefWidth="75.0"
+                <Button fx:id="btnAdd" layoutY="97.0" mnemonicParsing="false" onAction="#addRow" prefWidth="75.0"
                         text="Add"/>
                 <Label prefHeight="26.0" prefWidth="75.0" text="Name" textAlignment="CENTER"/>
                 <Label layoutY="28.0" prefHeight="26.0" prefWidth="75.0" text="Surname" textAlignment="CENTER"/>
@@ -15,9 +15,9 @@
                 <ChoiceBox fx:id="cbGroup" layoutX="75.0" layoutY="58.0" prefWidth="52.0"/>
                 <Label layoutY="58.0" prefHeight="26.0" prefWidth="75.0" text="Group" textAlignment="CENTER"/>
                 <TextField fx:id="tfSurname" layoutX="75.0" layoutY="28.0" prefWidth="150.0"/>
-                <Button fx:id="btnRemove" layoutX="83.0" layoutY="97.0" mnemonicParsing="false"
+                <Button fx:id="btnRemove" layoutX="83.0" layoutY="97.0" mnemonicParsing="false" onAction="#removeRow"
                         prefWidth="76.0" text="Remove"/>
-                <Button fx:id="tbnEdit" layoutX="166.0" layoutY="97.0" mnemonicParsing="false"
+                <Button fx:id="btnEdit" layoutX="166.0" layoutY="97.0" mnemonicParsing="false" onAction="#editRow"
                         prefWidth="75.0" text="Edit"/>
             </children>
         </Pane>

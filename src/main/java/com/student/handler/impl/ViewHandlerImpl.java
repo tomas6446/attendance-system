@@ -25,7 +25,7 @@ public class ViewHandlerImpl implements ViewHandler {
 
     @Override
     public void launchStudentWindow() throws IOException {
-        showScene(new Stage(), WindowFactory.STUDENT.createWindow(this));
+        showScene(primaryStage, WindowFactory.STUDENT.createWindow(this));
     }
 
     private void showScene(Stage stage, AbstractWindow window) throws IOException {
