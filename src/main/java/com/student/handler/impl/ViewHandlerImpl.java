@@ -10,6 +10,8 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Tomas Kozakas
@@ -17,23 +19,29 @@ import java.io.IOException;
 public class ViewHandlerImpl implements ViewHandler {
     private final Stage primaryStage;
     private final StudentWindow studentWindow;
-    private final AbstractWindow attendanceWindow;
+    private final List<AttendanceWindow> attendanceWindow;
 
     public ViewHandlerImpl(Stage primaryStage) {
         this.primaryStage = primaryStage;
-        this.attendanceWindow = new AttendanceWindow(new AttendanceController(this));
         this.studentWindow = new StudentWindow(new StudentController(this));
+        this.attendanceWindow = new ArrayList<>();
     }
 
     @Override
-    public void launchAttendanceWindow() throws IOException {
-        primaryStage.setScene(new Scene(attendanceWindow.root()));
-        primaryStage.show();
+    public void launchAttendanceWindow(int index) throws IOException {
+        if (index >= attendanceWindow.size()) {
+            attendanceWindow.add(new AttendanceWindow(new AttendanceController(this)));
+        }
+        showWindow(attendanceWindow.get(index));
     }
 
     @Override
     public void launchStudentWindow() throws IOException {
-        primaryStage.setScene(new Scene(studentWindow.root()));
+        showWindow(studentWindow);
+    }
+
+    private void showWindow(AbstractWindow window) throws IOException {
+        primaryStage.setScene(new Scene(window.root()));
         primaryStage.show();
     }
 }

@@ -91,7 +91,7 @@ public class StudentController extends AbstractController<Student> implements Ta
                     cbGroup.setValue(chosenObject.getGroup());
                     if (event.getClickCount() == 2) {
                         try {
-                            viewHandler.launchAttendanceWindow();
+                            viewHandler.launchAttendanceWindow(row.getIndex());
                         } catch (IOException e) {
                             throw new RuntimeException(e);
                         }

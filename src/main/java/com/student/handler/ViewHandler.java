@@ -6,7 +6,7 @@ import java.io.IOException;
  * @author Tomas Kozakas
  */
 public interface ViewHandler {
-    void launchAttendanceWindow() throws IOException;
+    void launchAttendanceWindow(int index) throws IOException;
 
     void launchStudentWindow() throws IOException;
 }
