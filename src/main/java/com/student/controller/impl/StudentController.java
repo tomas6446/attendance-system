@@ -106,5 +106,7 @@ public class StudentController extends AbstractController<Student> implements Ta
         btnEdit.setOnAction(editRow());
         cbGroup.getItems().addAll("1", "2", "3", "4");
         cbGroup.setValue(cbGroup.getValue());
+
+        table.setItems(list);
     }
 }

@@ -7,8 +7,8 @@ import java.io.IOException;
 
 public class Application extends javafx.application.Application {
     @Override
-    public void start(Stage stage) throws IOException {
-        new ViewHandlerImpl(stage).launchStudentWindow();
+    public void start(Stage primaryStage) throws IOException {
+        new ViewHandlerImpl(primaryStage).launchStudentWindow();
     }
 
     public static void main(String[] args) {

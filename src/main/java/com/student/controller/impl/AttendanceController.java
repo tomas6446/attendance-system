@@ -101,5 +101,6 @@ public class AttendanceController extends AbstractController<Attendance> impleme
                 throw new RuntimeException(e);
             }
         });
+        table.setItems(list);
     }
 }
