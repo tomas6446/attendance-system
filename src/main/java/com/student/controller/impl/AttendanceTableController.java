@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -65,7 +66,19 @@ public class AttendanceTableController extends AbstractTableController<Attendanc
     @Override
     public EventHandler<ActionEvent> exportTable() {
         return e -> {
+            try {
+                FileWriter fileWriter = new FileWriter("attendance.csv");
 
+                fileWriter.append("Date,Present,Subject\n");
+                for (Attendance attendance : list) {
+                    fileWriter.append(attendance.getDate().toString()
+                            + ',' + attendance.getPresent()
+                            + ',' + attendance.getSubject() + "\n");
+                }
+                fileWriter.close();
+            } catch (Exception exception) {
+                exception.printStackTrace();
+            }
         };
     }
 

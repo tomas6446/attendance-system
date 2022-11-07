@@ -70,18 +70,13 @@ public class StudentTableController extends AbstractTableController<Student> imp
         return e -> {
             try {
                 FileWriter fileWriter = new FileWriter("students.csv");
+
+                fileWriter.append("No,Name,Surname,Group\n");
                 for (Student student : list) {
-                    fileWriter.append(String.valueOf(student.getNumber()));
-                    fileWriter.append(',');
-                    fileWriter.append(String.valueOf(student.getName()));
-                    fileWriter.append(',');
-                    fileWriter.append(student.getSurname());
-                    fileWriter.append(',');
-                    fileWriter.append(student.getGroup());
+                    fileWriter.append(String.valueOf(student.getNumber()) + ',' + student.getName() + ',' + student.getSurname() + ',' + student.getGroup() + "\n");
                 }
-                System.out.println("CSV file was created successfully !!!");
+                fileWriter.close();
             } catch (Exception exception) {
-                System.out.println("Error in CsvFileWriter !!!");
                 exception.printStackTrace();
             }
         };
