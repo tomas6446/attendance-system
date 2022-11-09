@@ -3,12 +3,16 @@ package com.student.controller.impl;
 import com.student.controller.AbstractTableController;
 import com.student.model.Student;
 import com.student.view.ViewHandler;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
@@ -38,8 +42,6 @@ public class StudentTableController extends AbstractTableController<Student> imp
     private Button btnEdit;
     @FXML
     private Button btnRemove;
-    @FXML
-    private Button btnExport;
 
     public StudentTableController(ViewHandler viewHandler) {
         super(viewHandler);
@@ -54,6 +56,7 @@ public class StudentTableController extends AbstractTableController<Student> imp
                 }
                 table.setItems(list);
             }
+            exportTable();
         };
     }
 
@@ -66,20 +69,47 @@ public class StudentTableController extends AbstractTableController<Student> imp
     }
 
     @Override
-    public EventHandler<ActionEvent> exportTable() {
-        return e -> {
-            try {
-                FileWriter fileWriter = new FileWriter("students.csv");
+    public void exportTable() {
+        try {
+            try (FileWriter fileWriter = new FileWriter("students.csv")) {
 
                 fileWriter.append("No,Name,Surname,Group\n");
                 for (Student student : list) {
-                    fileWriter.append(String.valueOf(student.getNumber()) + ',' + student.getName() + ',' + student.getSurname() + ',' + student.getGroup() + "\n");
+                    fileWriter.append(String.valueOf(student.getNumber()))
+                            .append(String.valueOf(','))
+                            .append(student.getName())
+                            .append(String.valueOf(','))
+                            .append(student.getSurname())
+                            .append(String.valueOf(','))
+                            .append(student.getGroup())
+                            .append("\n");
                 }
-                fileWriter.close();
-            } catch (Exception exception) {
-                exception.printStackTrace();
             }
-        };
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
+
+    }
+
+    @Override
+    public void importTable() throws RuntimeException {
+        ObservableList<Student> students = FXCollections.observableArrayList();
+        try (BufferedReader br = new BufferedReader(new FileReader("students.csv"))) {
+            String line = br.readLine();
+            while ((line = br.readLine()) != null) {
+                String[] fields = line.split(",", -1);
+                String number = fields[0];
+                String name = fields[1];
+                String surname = fields[2];
+                String group = fields[3];
+
+                Student student = new Student(number, name, surname, group);
+                students.add(student);
+            }
+            list = students;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
@@ -120,11 +150,11 @@ public class StudentTableController extends AbstractTableController<Student> imp
             });
             return row;
         });
+        importTable();
 
         btnAdd.setOnAction(addRow());
         btnRemove.setOnAction(removeRow());
         btnEdit.setOnAction(editRow());
-        btnExport.setOnAction(exportTable());
         cbGroup.getItems().addAll("1", "2", "3", "4");
         cbGroup.setValue(cbGroup.getValue());
 

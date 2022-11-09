@@ -10,7 +10,7 @@ import javafx.scene.control.TableView;
  * @author Tomas Kozakas
  */
 public abstract class AbstractTableController<T> extends AbstractController {
-    protected final ObservableList<T> list = FXCollections.observableArrayList();
+    protected ObservableList<T> list = FXCollections.observableArrayList();
     @FXML
     protected TableView<T> table;
     protected T chosenObject;

@@ -17,6 +17,7 @@ public interface Table {
     @FXML
     EventHandler<ActionEvent> removeRow();
 
-    @FXML
-    EventHandler<ActionEvent> exportTable();
+    void exportTable();
+
+    void importTable();
 }

@@ -30,7 +30,7 @@ public class ViewHandlerImpl implements ViewHandler {
     @Override
     public void launchAttendanceWindow(int index) throws IOException {
         if (index >= attendanceWindow.size()) {
-            attendanceWindow.add(new AttendanceWindow(new AttendanceTableController(this)));
+            attendanceWindow.add(new AttendanceWindow(new AttendanceTableController(this, index)));
         }
         showWindow(attendanceWindow.get(index));
     }

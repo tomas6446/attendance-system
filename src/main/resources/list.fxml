@@ -1,39 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.Pane?>
-<Pane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-      prefHeight="700.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+
+<Pane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <Pane fx:id="inputPane" layoutX="41.0" layoutY="37.0">
             <children>
-                <Button fx:id="btnAdd" layoutY="97.0" mnemonicParsing="false" onAction="#addRow" prefWidth="75.0"
-                        text="Add"/>
-                <Label prefHeight="26.0" prefWidth="75.0" text="Name" textAlignment="CENTER"/>
-                <Label layoutY="28.0" prefHeight="26.0" prefWidth="75.0" text="Surname" textAlignment="CENTER"/>
-                <TextField fx:id="tfName" layoutX="75.0" prefWidth="150.0"/>
-                <ChoiceBox fx:id="cbGroup" layoutX="75.0" layoutY="58.0" prefWidth="52.0"/>
-                <Label layoutY="58.0" prefHeight="26.0" prefWidth="75.0" text="Group" textAlignment="CENTER"/>
-                <TextField fx:id="tfSurname" layoutX="75.0" layoutY="28.0" prefWidth="150.0"/>
-                <Button fx:id="btnRemove" layoutX="83.0" layoutY="97.0" mnemonicParsing="false" onAction="#removeRow"
-                        prefWidth="76.0" text="Remove"/>
-                <Button fx:id="btnEdit" layoutX="166.0" layoutY="97.0" mnemonicParsing="false" onAction="#editRow"
-                        prefWidth="75.0" text="Edit"/>
+                <Button fx:id="btnAdd" layoutY="97.0" mnemonicParsing="false" onAction="#addRow" prefWidth="75.0" text="Add" />
+                <Label prefHeight="26.0" prefWidth="75.0" text="Name" textAlignment="CENTER" />
+                <Label layoutY="28.0" prefHeight="26.0" prefWidth="75.0" text="Surname" textAlignment="CENTER" />
+                <TextField fx:id="tfName" layoutX="75.0" prefWidth="150.0" />
+                <ChoiceBox fx:id="cbGroup" layoutX="75.0" layoutY="58.0" prefWidth="52.0" />
+                <Label layoutY="58.0" prefHeight="26.0" prefWidth="75.0" text="Group" textAlignment="CENTER" />
+                <TextField fx:id="tfSurname" layoutX="75.0" layoutY="28.0" prefWidth="150.0" />
+                <Button fx:id="btnRemove" layoutX="83.0" layoutY="97.0" mnemonicParsing="false" onAction="#removeRow" prefWidth="76.0" text="Remove" />
+                <Button fx:id="btnEdit" layoutX="166.0" layoutY="97.0" mnemonicParsing="false" onAction="#editRow" prefWidth="75.0" text="Edit" />
             </children>
         </Pane>
         <Pane fx:id="tablePane" layoutX="350.0" layoutY="37.0">
             <children>
                 <TableView fx:id="table" prefHeight="550.0" prefWidth="400.0">
                     <columns>
-                        <TableColumn fx:id="numberCol" prefWidth="35.0" text="No"/>
-                        <TableColumn fx:id="nameCol" prefWidth="150.0" text="Name"/>
-                        <TableColumn fx:id="surnameCol" prefWidth="150.0" text="Surname"/>
-                        <TableColumn fx:id="groupCol" prefWidth="63.0" text="Group"/>
+                        <TableColumn fx:id="numberCol" prefWidth="35.0" text="No" />
+                        <TableColumn fx:id="nameCol" prefWidth="150.0" text="Name" />
+                        <TableColumn fx:id="surnameCol" prefWidth="150.0" text="Surname" />
+                        <TableColumn fx:id="groupCol" prefWidth="63.0" text="Group" />
                     </columns>
                 </TableView>
             </children>
         </Pane>
-        <Button fx:id="btnExport" layoutX="674.0" layoutY="600.0" mnemonicParsing="false" onAction="#exportTable"
-                prefWidth="76.0" text="Export"/>
     </children>
 </Pane>
