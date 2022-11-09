@@ -20,7 +20,7 @@ import java.util.ResourceBundle;
  * @author Tomas Kozakas
  */
 public class AttendanceTableController extends AbstractTableController<Attendance> implements Table {
-    private Integer studentID;
+    private final Integer studentID;
     @FXML
     private TableColumn<Attendance, String> dateCol;
     @FXML
@@ -69,10 +69,14 @@ public class AttendanceTableController extends AbstractTableController<Attendanc
     @Override
     public void exportTable() {
         try {
-            try (FileWriter fileWriter = new FileWriter("attendance/" + studentID + "attendance.csv")) {
+            try (FileWriter fileWriter = new FileWriter(String.format("attendance/%dattendance.csv", studentID))) {
                 fileWriter.append("Date,Present,Subject\n");
                 for (Attendance attendance : list) {
-                    fileWriter.append(attendance.getDate().toString() + ',' + attendance.getPresent() + ',' + attendance.getSubject() + "\n");
+                    fileWriter.append(attendance.getDate().toString())
+                            .append(String.valueOf(','))
+                            .append(String.valueOf(attendance.getPresent()))
+                            .append(String.valueOf(','))
+                            .append(attendance.getSubject()).append("\n");
                 }
             }
         } catch (Exception exception) {
@@ -83,7 +87,7 @@ public class AttendanceTableController extends AbstractTableController<Attendanc
     @Override
     public void importTable() throws RuntimeException {
         ObservableList<Attendance> attendances = FXCollections.observableArrayList();
-        try (BufferedReader br = new BufferedReader(new FileReader("attendance/" + studentID + "attendance.csv"))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(String.format("attendance/%dattendance.csv", studentID)))) {
             String line = br.readLine();
             while ((line = br.readLine()) != null) {
                 String[] fields = line.split(",", -1);
