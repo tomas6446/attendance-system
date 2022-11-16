@@ -1,7 +1,7 @@
 package com.student.view.impl;
 
-import com.student.controller.impl.AttendanceTableController;
 import com.student.controller.impl.StudentTableController;
+import com.student.controller.impl.AttendanceTableController;
 import com.student.view.ViewHandler;
 import com.student.window.AbstractWindow;
 import com.student.window.impl.AttendanceWindow;

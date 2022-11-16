@@ -1,8 +1,8 @@
 package com.student.controller.impl;
 
 import com.student.controller.AbstractTableController;
-import com.student.model.Attendance;
 import com.student.view.ViewHandler;
+import com.student.model.Attendance;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -69,7 +69,7 @@ public class AttendanceTableController extends AbstractTableController<Attendanc
     @Override
     public void exportTable() {
         try {
-            try (FileWriter fileWriter = new FileWriter(String.format("attendance/%dattendance.csv", studentID))) {
+            try (FileWriter fileWriter = new FileWriter(String.format("attendance/%d-attendance.csv", studentID))) {
                 fileWriter.append("Date,Present,Subject\n");
                 for (Attendance attendance : list) {
                     fileWriter.append(attendance.getDate().toString())
@@ -87,7 +87,7 @@ public class AttendanceTableController extends AbstractTableController<Attendanc
     @Override
     public void importTable() throws RuntimeException {
         ObservableList<Attendance> attendances = FXCollections.observableArrayList();
-        try (BufferedReader br = new BufferedReader(new FileReader(String.format("attendance/%dattendance.csv", studentID)))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(String.format("attendance/%d-attendance.csv", studentID)))) {
             String line = br.readLine();
             while ((line = br.readLine()) != null) {
                 String[] fields = line.split(",", -1);
@@ -99,6 +99,7 @@ public class AttendanceTableController extends AbstractTableController<Attendanc
                 attendances.add(attendance);
             }
             list = attendances;
+            table.setItems(list);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -117,7 +118,7 @@ public class AttendanceTableController extends AbstractTableController<Attendanc
     }
 
     private void createNewAttendanceFile() {
-        File newAttendanceFile = new File("attendance/" + studentID + "attendance.csv");
+        File newAttendanceFile = new File("attendance/" + studentID + 1 + "attendance.csv");
         try {
             if (newAttendanceFile.createNewFile()) {
                 System.out.println("File created: " + newAttendanceFile.getName());

@@ -107,6 +107,7 @@ public class StudentTableController extends AbstractTableController<Student> imp
                 students.add(student);
             }
             list = students;
+            table.setItems(list);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
