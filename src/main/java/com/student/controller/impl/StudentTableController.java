@@ -50,7 +50,7 @@ public class StudentTableController extends AbstractTableController<Student> imp
         return e -> {
             if ((tfName.getText() != null && tfSurname.getText() != null && cbGroup.getValue() != null) && (!tfName.getText().isEmpty() && !tfSurname.getText().isEmpty() && !cbGroup.getValue().isEmpty())) {
                 if (list.stream().noneMatch(student -> student.getName().equals(tfName.getText()) && student.getSurname().equals(tfSurname.getText()) && student.getGroup().equals(cbGroup.getValue()))) { // if student doesn't exist in the list
-                    list.add(new Student(list.size() + 1 + ".", tfName.getText(), tfSurname.getText(), cbGroup.getValue()));
+                    list.add(new Student(String.valueOf(list.size() + 1), tfName.getText(), tfSurname.getText(), cbGroup.getValue()));
                 }
                 table.setItems(list);
             }
@@ -63,6 +63,8 @@ public class StudentTableController extends AbstractTableController<Student> imp
         return e -> {
             list.remove(chosenObject);
             table.setItems(list);
+            exportTable();
+            deleteFile(Integer.parseInt(chosenObject.getNumber()) - 1);
         };
     }
 
@@ -123,7 +125,7 @@ public class StudentTableController extends AbstractTableController<Student> imp
         };
     }
 
-    private void createNewStudentFile() throws RuntimeException {
+    private void addNewFile() {
         File newAttendanceFile = new File("students.csv");
         try {
             if (newAttendanceFile.createNewFile()) {
@@ -134,9 +136,16 @@ public class StudentTableController extends AbstractTableController<Student> imp
         }
     }
 
+    public void deleteFile(int studentID) {
+        File attendanceFile = new File("attendance/" + studentID + "attendance.csv");
+        if (attendanceFile.delete()) {
+            System.out.println("File deleted: " + attendanceFile.getName());
+        }
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle bundle) {
-        createNewStudentFile();
+        addNewFile();
         importTable();
 
         numberCol.setCellValueFactory(new PropertyValueFactory<>("number"));

@@ -50,7 +50,8 @@ public class AttendanceTableController extends AbstractTableController<Attendanc
     @Override
     public EventHandler<ActionEvent> addRow() {
         return e -> {
-            if (list.stream().noneMatch(attend -> attend.getDate().equals(dpDate.getValue()) && attend.getSubject().equals(tfSubject.getText()))) {
+            if ((list.stream().noneMatch(attend -> attend.getDate().equals(dpDate.getValue()) && attend.getSubject().equals(tfSubject.getText())))
+                    && (dpDate.getValue() != null || !tfSubject.getText().isEmpty())) {
                 list.add(new Attendance(dpDate.getValue(), chbPresent.isSelected(), tfSubject.getText()));
             }
             table.setItems(list);
@@ -63,6 +64,7 @@ public class AttendanceTableController extends AbstractTableController<Attendanc
         return e -> {
             list.remove(chosenObject);
             table.setItems(list);
+            exportTable();
         };
     }
 
