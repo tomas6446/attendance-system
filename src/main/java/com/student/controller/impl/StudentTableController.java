@@ -11,10 +11,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -22,6 +19,7 @@ import java.util.ResourceBundle;
  * @author Tomas Kozakas
  */
 public class StudentTableController extends AbstractTableController<Student> implements Table {
+
     @FXML
     private TableColumn<Student, String> nameCol;
     @FXML
@@ -125,8 +123,22 @@ public class StudentTableController extends AbstractTableController<Student> imp
         };
     }
 
+    private void createNewStudentFile() throws RuntimeException {
+        File newAttendanceFile = new File("students.csv");
+        try {
+            if (newAttendanceFile.createNewFile()) {
+                System.out.println("File created: " + newAttendanceFile.getName());
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle bundle) {
+        createNewStudentFile();
+        importTable();
+
         numberCol.setCellValueFactory(new PropertyValueFactory<>("number"));
         nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
         surnameCol.setCellValueFactory(new PropertyValueFactory<>("surname"));
@@ -151,7 +163,6 @@ public class StudentTableController extends AbstractTableController<Student> imp
             });
             return row;
         });
-        importTable();
 
         btnAdd.setOnAction(addRow());
         btnRemove.setOnAction(removeRow());
