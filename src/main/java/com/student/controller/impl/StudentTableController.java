@@ -19,7 +19,6 @@ import java.util.ResourceBundle;
  * @author Tomas Kozakas
  */
 public class StudentTableController extends AbstractTableController<Student> implements Table {
-
     @FXML
     private TableColumn<Student, String> nameCol;
     @FXML

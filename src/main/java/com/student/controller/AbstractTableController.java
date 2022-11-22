@@ -1,7 +1,6 @@
 package com.student.controller;
 
 import com.student.view.ViewHandler;
-import com.student.controller.AbstractController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
